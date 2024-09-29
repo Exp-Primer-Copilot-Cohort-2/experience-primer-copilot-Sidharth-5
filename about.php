@@ -3,7 +3,7 @@
     <title>About Us</title>
     <?php include 'menu.php'; ?> <!-- Including the navigation header from menu.php -->
     <link rel="stylesheet" href="style/home.css"> <!-- Including home.css for navigation styles -->
-    <link rel="stylesheet" href="style/cover.css"> <!-- Including cover.css for page-specific styles -->
+    <link rel="stylesheet" href="style/about.css"> <!-- Including cover.css for page-specific styles -->
 </head>
 
 <body>
@@ -46,20 +46,60 @@
             <p>
                 If you have any questions, feedback, or concerns, please feel free to contact us. Our customer service team is available to assist you with any inquiries or issues you may have. You can reach us via email, phone, or our online contact form.
             </p>
+        </div>
+
+        <div class="contact-details">
+            <p>
+                Email: booklab@gmail.com <br>
+                Phone: +230-59876543
+            </p>
+        </div>
+
             <!-- Contact Form -->
-            <form class="contact-form" action="submit_contact.php" method="post">
+            <form class="contact-form" action="submit_contact.php" method="post" onsubmit="return validateForm()">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" required minlength="2" maxlength="50" pattern="[A-Za-z\s]+" title="Please enter a valid name (letters and spaces only).">
 
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address.">
 
                 <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
+                <textarea id="message" name="message" rows="5" required minlength="10" maxlength="500" title="Message should be between 10 and 500 characters."></textarea>
 
                 <button type="submit">Send Message</button>
             </form>
+
+            <script>
+            function validateForm() {
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                // Name validation
+                if (name.trim() === '') {
+                    alert('Name is required.');
+                    return false;
+                }
+
+                // Email validation
+                const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+                if (!emailPattern.test(email)) {
+                    alert('Please enter a valid email address.');
+                    return false;
+                }
+
+                // Message validation
+                if (message.trim().length < 10) {
+                    alert('Message must be at least 10 characters long.');
+                    return false;
+                }
+
+                return true;
+            }
+            </script>
+
         </div>
     </section>
 </body>
 </html>
+
